@@ -13,10 +13,6 @@
  * @return mixed
  *   Renderable array with all the form elements.
  */
-// curl https://api.statuspage.io/v1/pages/g6py5c2psjpr.json \-H "Authorization: OAuth fd68825f-da80-4cbb-90bf-cd31277dd593"
-// curl https://api.statuspage.io/v1/pages/g6py5c2psjpr/incidents.json \-H "Authorization: OAuth fd68825f-da80-4cbb-90bf-cd31277dd593"
-// curl https://api.statuspage.io/v1/pages/g6py5c2psjpr/incidents/unresolved.json \-H "Authorization: OAuth fd68825f-da80-4cbb-90bf-cd31277dd593"
-// curl https://g6py5c2psjpr.statuspage.io/api/v2/status.json \-H "Authorization: OAuth fd68825f-da80-4cbb-90bf-cd31277dd593"
 function easyddb_status_admin_settings_form($form, &$form_state) {
   global $base_url;
   $configs = variable_get('easyddb_status', []);
