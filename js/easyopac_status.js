@@ -11,7 +11,7 @@
 
   let message = '';
 
-  Drupal.behaviors.easyddb_status_colors = {
+  Drupal.behaviors.easyopac_status_colors = {
     attach: function(context) {
       $('.easyddb-status-background-color, .easyddb-status-text-color', context).each(function (index, textfield) {
         $(textfield).css('background-color', $(textfield).val());
@@ -36,11 +36,11 @@
     }
   };
 
-  Drupal.behaviors.easyddb_status_popup = {
+  Drupal.behaviors.easyopac_status_popup = {
     attach: function (context) {
       $('#easyddb-status-wrapper', context).once('status-message', function () {
-        let status = Drupal.settings.easyddb_status;
-        let display = Drupal.settings.easyddb_status_display;
+        let status = Drupal.settings.easyopac_status;
+        let display = Drupal.settings.easyopac_status_display;
         if (status.length === 0 || !status.settings.active ||
             display.length === 0 || !display.status) {
           return;
@@ -48,16 +48,16 @@
 
         callStatusService();
         $(this)
-          .css('background-color', Drupal.settings.easyddb_status.settings.background_color)
+          .css('background-color', Drupal.settings.easyopac_status.settings.background_color)
           .toggleClass('hidden')
-          .find('.message').css('color', Drupal.settings.easyddb_status.settings.text_color)
-          .find('a').css('color', Drupal.settings.easyddb_status.settings.text_color);
+          .find('.message').css('color', Drupal.settings.easyopac_status.settings.text_color)
+          .find('a').css('color', Drupal.settings.easyopac_status.settings.text_color);
 
         // Hide bar on close click.
         $(this).find('.close-button').on('click', function () {
           $('#easyddb-status-wrapper').toggleClass('hidden');
           $.ajax({
-            url: '/easyddb_status/close',
+            url: '/easyopac_status/close',
           });
         });
       });
@@ -69,20 +69,20 @@
    */
   function callStatusService() {
     $.ajax({
-      url: `https://${Drupal.settings.easyddb_status.admin.page}.${Drupal.settings.easyddb_status.admin.url}`,
+      url: `https://${Drupal.settings.easyopac_status.admin.page}.${Drupal.settings.easyopac_status.admin.url}`,
       success: function (response) {
-        let indicator = Drupal.settings.easyddb_status_display.indicator;
+        let indicator = Drupal.settings.easyopac_status_display.indicator;
 
         if (!indicator && response.status.indicator !== indicator && message === '') {
           message = Drupal.t(response.status.description);
 
-          if (Drupal.settings.easyddb_status.settings.show_text && Drupal.settings.easyddb_status.settings.text) {
-            message += `<p>${Drupal.settings.easyddb_status.settings.text}</p>`;
+          if (Drupal.settings.easyopac_status.settings.show_text && Drupal.settings.easyopac_status.settings.text) {
+            message += `<p>${Drupal.settings.easyopac_status.settings.text}</p>`;
           }
 
           // Link to page.
-          if (Drupal.settings.easyddb_status.settings.link_page && Drupal.settings.easyddb_status.settings.link) {
-            message = `<a href="${Drupal.settings.easyddb_status.settings.link}" style="color: ${Drupal.settings.easyddb_status.settings.text_color}">${message}
+          if (Drupal.settings.easyopac_status.settings.link_page && Drupal.settings.easyopac_status.settings.link) {
+            message = `<a href="${Drupal.settings.easyopac_status.settings.link}" style="color: ${Drupal.settings.easyopac_status.settings.text_color}">${message}
           </a>`;
           }
           $('#easyddb-status-wrapper').find('.message').html(message);

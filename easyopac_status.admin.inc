@@ -13,18 +13,18 @@
  * @return mixed
  *   Renderable array with all the form elements.
  */
-function easyddb_status_admin_settings_form($form, &$form_state) {
+function easyopac_status_admin_settings_form($form, &$form_state) {
   global $base_url;
-  $configs = variable_get('easyddb_status', []);
+  $configs = variable_get('easyopac_status', []);
   $form['#tree'] = TRUE;
 
-  $form['easyddb_status']['admin'] = [
+  $form['easyopac_status']['admin'] = [
     '#type' => 'fieldset',
     '#title' => t('Admin configs'),
     '#collapsible' => !empty($configs['admin']) ? !empty(array_filter($configs['admin'])) : FALSE,
     '#collapsed' => TRUE,
   ];
-  $form['easyddb_status']['admin']['url'] = [
+  $form['easyopac_status']['admin']['url'] = [
     '#type' => 'textfield',
     '#title' => t('API url'),
     '#default_value' => !empty($configs['admin']['url']) ? $configs['admin']['url'] : '',
@@ -33,13 +33,13 @@ function easyddb_status_admin_settings_form($form, &$form_state) {
     ],
     '#required' => TRUE,
   ];
-  $form['easyddb_status']['admin']['page'] = [
+  $form['easyopac_status']['admin']['page'] = [
     '#type' => 'textfield',
     '#title' => t('Page ID'),
     '#default_value' => !empty($configs['admin']['page']) ? $configs['admin']['page'] : '',
     '#required' => TRUE,
   ];
-  $form['easyddb_status']['admin']['key'] = [
+  $form['easyopac_status']['admin']['key'] = [
     '#type' => 'textfield',
     '#title' => t('User API Key'),
     '#default_value' => !empty($configs['admin']['key']) ? $configs['admin']['key'] : '',
@@ -48,41 +48,41 @@ function easyddb_status_admin_settings_form($form, &$form_state) {
     ],
   ];
 
-  $form['easyddb_status']['settings'] = [
+  $form['easyopac_status']['settings'] = [
     '#type' => 'fieldset',
     '#title' => t('Status bar'),
     '#collapsible' => FALSE,
   ];
-  $form['easyddb_status']['settings']['active'] = [
+  $form['easyopac_status']['settings']['active'] = [
     '#type' => 'checkbox',
     '#title' => t('Enable automatic status update.'),
     '#default_value' =>!empty($configs['settings']['active']) ? $configs['settings']['active'] : 0,
   ];
-  $form['easyddb_status']['settings']['show_text'] = [
+  $form['easyopac_status']['settings']['show_text'] = [
     '#type' => 'checkbox',
     '#title' => t('Custom text (Will also be shown together with the automatic updates - if any)'),
     '#default_value' => !empty($configs['settings']['show_text']) ? $configs['settings']['show_text'] : 0,
   ];
-  $form['easyddb_status']['settings']['text'] = [
+  $form['easyopac_status']['settings']['text'] = [
     '#type' => 'textfield',
     '#default_value' => !empty($configs['settings']['text']) ? $configs['settings']['text'] : '',
     '#attributes' => [
       'placeholder' => t('Something is wrong with the library system.'),
     ],
   ];
-  $form['easyddb_status']['settings']['link_page'] = [
+  $form['easyopac_status']['settings']['link_page'] = [
     '#type' => 'checkbox',
     '#title' => t('Link to page'),
     '#default_value' => !empty($configs['settings']['link_page']) ? $configs['settings']['link_page'] : 0,
   ];
-  $form['easyddb_status']['settings']['link'] = [
+  $form['easyopac_status']['settings']['link'] = [
     '#type' => 'textfield',
     '#default_value' => !empty($configs['settings']['link']) ? $configs['settings']['link'] : '',
     '#attributes' => [
       'placeholder' => t('@url/news', ['@url' => $base_url]),
     ],
   ];
-  $form['easyddb_status']['settings']['background_color'] = [
+  $form['easyopac_status']['settings']['background_color'] = [
     '#type' => 'textfield',
     '#title' => t('Background color'),
     '#default_value' => !empty($configs['settings']['background_color']) ? $configs['settings']['background_color'] : '#fff',
@@ -99,7 +99,7 @@ function easyddb_status_admin_settings_form($form, &$form_state) {
       ],
     ],
   ];
-  $form['easyddb_status']['settings']['text_color'] = [
+  $form['easyopac_status']['settings']['text_color'] = [
     '#type' => 'textfield',
     '#title' => t('Text color'),
     '#default_value' => !empty($configs['settings']['text_color']) ? $configs['settings']['text_color'] : '#000',

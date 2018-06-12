@@ -23,4 +23,4 @@ output_style = :expanded
 sass_options =  {:debug_info => false}
 
 # Ignore line comments when compiling, in order to avoid confusion.
-line_comments = true
+line_comments = false

@@ -1,0 +1,17 @@
+<?php
+/**
+ * @file
+ * Provide functionality for module install/uninstall.
+ */
+
+/**
+ * Implements hook_install().
+ */
+function easyopac_status_install() {
+  variable_set('easyopac_status_display', ['content' => '', 'status' => 1, 'indicator' => '']);
+}
+
+function easyopac_status_uninstall() {
+  variable_del('easyopac_status');
+  variable_del('easyopac_status_display');
+}
