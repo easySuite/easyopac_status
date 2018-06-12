@@ -1,0 +1,42 @@
+@import "../../../themes/ddbasic/sass/base/icomoon.scss";
+#easyddb-status-wrapper {
+  position: relative;
+  &.hidden {
+    display: none;
+  }
+  .easyddb-status-inner {
+    width: 90%;
+    position: relative;
+    max-width: 1124px;
+    margin-left: auto;
+    margin-right: auto;
+    .message {
+      padding: 20px 0;
+      border: none;
+      p {
+        margin: 0;
+      }
+    }
+    .close-container {
+      position: absolute;
+      top: -8px;
+      right: 0;
+      width: 54px;
+      height: 54px;
+      .close-button {
+        position: relative;
+        display: block;
+        &::after {
+          font-family: 'icomoon';
+          font-size: 54px;
+          line-height: 1;
+          color: rgba(38,38,38,.54);
+          display: block;
+          position: absolute;
+          top: 0;
+          content: "\e907";
+        }
+      }
+    }
+  }
+}

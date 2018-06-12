@@ -1,0 +1,70 @@
+<?php
+/**
+ * @file
+ * Define hooks for the status bar functionality.
+ */
+
+/**
+ * Implements hook_menu().
+ */
+function easyddb_status_menu() {
+  $items = [];
+  $items['admin/reports/easyddb_status'] = [
+    'title' => 'easyOPAC Status',
+    'description' => 'easyOPAC Status cron report',
+    'page callback' => 'drupal_get_form',
+    'page arguments' => ['easyddb_status_admin_settings_form'],
+    'access arguments' => ['access administration pages'],
+    'type' => MENU_NORMAL_ITEM,
+    'file' => 'easyddb_status.admin.inc',
+  ];
+  $items['easyddb_status/close'] = [
+    'title' => 'easyOPAC Close status bar',
+    'description' => 'easyOPAC close Status bar',
+    'page callback' => 'easyddb_status_close_bar',
+    'access arguments' => ['access content'],
+    'type' => MENU_CALLBACK,
+  ];
+
+  return $items;
+}
+
+/**
+ * Implements hook_cron().
+ */
+function easyddb_status_cron() {
+  variable_set('easyddb_status_display', ['content' => '', 'status' => 1, 'indicator' => '']);
+}
+
+/**
+ * Implements hook_page_build().
+ */
+function easyddb_status_page_build(&$page) {
+  $path =  drupal_get_path('module', 'easyddb_status');
+  drupal_add_js($path . '/js/easyddb_status.js');
+
+  if (arg(0) == 'admin') {
+    return;
+  }
+  $page['page_top']['status'] = [
+    '#markup' => '<div id="easyddb-status-wrapper" class="hidden"><div class="easyddb-status-inner"><div class="message"></div><div class="close-container"><a href="#" class="close-button"></a></div></div></div>',
+    '#attached' => [
+      'js' => [
+        ['data' => [
+          'easyddb_status' => variable_get('easyddb_status', []),
+          'easyddb_status_display' => variable_get('easyddb_status_display', []),
+          ],
+          'type' => 'setting',
+        ],
+      ],
+      'css' => [
+        $path . '/css/easyddb_status.css'
+      ],
+    ],
+  ];
+}
+
+function easyddb_status_close_bar() {
+  variable_set('easyddb_status_display', ['content' => check_plain($_GET['content']), 'status' => 0, 'indicator' => '']
+  );
+}
