@@ -7,21 +7,21 @@
 /**
  * Implements hook_menu().
  */
-function easyddb_status_menu() {
+function easyopac_status_menu() {
   $items = [];
-  $items['admin/reports/easyddb_status'] = [
+  $items['admin/reports/easyopac_status'] = [
     'title' => 'easyOPAC Status',
     'description' => 'easyOPAC Status cron report',
     'page callback' => 'drupal_get_form',
-    'page arguments' => ['easyddb_status_admin_settings_form'],
+    'page arguments' => ['easyopac_status_admin_settings_form'],
     'access arguments' => ['access administration pages'],
     'type' => MENU_NORMAL_ITEM,
-    'file' => 'easyddb_status.admin.inc',
+    'file' => 'easyopac_status.admin.inc',
   ];
-  $items['easyddb_status/close'] = [
+  $items['easyopac_status/close'] = [
     'title' => 'easyOPAC Close status bar',
     'description' => 'easyOPAC close Status bar',
-    'page callback' => 'easyddb_status_close_bar',
+    'page callback' => 'easyopac_status_close_bar',
     'access arguments' => ['access content'],
     'type' => MENU_CALLBACK,
   ];
@@ -32,16 +32,16 @@ function easyddb_status_menu() {
 /**
  * Implements hook_cron().
  */
-function easyddb_status_cron() {
-  variable_set('easyddb_status_display', ['content' => '', 'status' => 1, 'indicator' => '']);
+function easyopac_status_cron() {
+  variable_set('easyopac_status_display', ['content' => '', 'status' => 1, 'indicator' => '']);
 }
 
 /**
  * Implements hook_page_build().
  */
-function easyddb_status_page_build(&$page) {
-  $path =  drupal_get_path('module', 'easyddb_status');
-  drupal_add_js($path . '/js/easyddb_status.js');
+function easyopac_status_page_build(&$page) {
+  $path =  drupal_get_path('module', 'easyopac_status');
+  drupal_add_js($path . '/js/easyopac_status.js');
 
   if (arg(0) == 'admin') {
     return;
@@ -51,20 +51,20 @@ function easyddb_status_page_build(&$page) {
     '#attached' => [
       'js' => [
         ['data' => [
-          'easyddb_status' => variable_get('easyddb_status', []),
-          'easyddb_status_display' => variable_get('easyddb_status_display', []),
+          'easyopac_status' => variable_get('easyopac_status', []),
+          'easyopac_status_display' => variable_get('easyopac_status_display', []),
           ],
           'type' => 'setting',
         ],
       ],
       'css' => [
-        $path . '/css/easyddb_status.css'
+        $path . '/css/easyopac_status.css'
       ],
     ],
   ];
 }
 
-function easyddb_status_close_bar() {
-  variable_set('easyddb_status_display', ['content' => check_plain($_GET['content']), 'status' => 0, 'indicator' => '']
+function easyopac_status_close_bar() {
+  variable_set('easyopac_status_display', ['content' => check_plain($_GET['content']), 'status' => 0, 'indicator' => '']
   );
 }
