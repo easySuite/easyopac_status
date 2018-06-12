@@ -1,0 +1,17 @@
+<?php
+/**
+ * @file
+ * Provide functionality for module install/uninstall.
+ */
+
+/**
+ * Implements hook_install().
+ */
+function easyddb_status_install() {
+  variable_set('easyddb_status_display', ['content' => '', 'status' => 1, 'indicator' => '']);
+}
+
+function easyddb_status_uninstall() {
+  variable_del('easyddb_status');
+  variable_del('easyddb_status_display');
+}
