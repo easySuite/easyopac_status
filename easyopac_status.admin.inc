@@ -79,7 +79,7 @@ function easyopac_status_admin_settings_form($form, &$form_state) {
     '#type' => 'textfield',
     '#default_value' => !empty($configs['settings']['link']) ? $configs['settings']['link'] : '',
     '#attributes' => [
-      'placeholder' => t('@url/news', ['@url' => $base_url]),
+      'placeholder' => t('@url/example', ['@url' => $base_url]),
     ],
   ];
   $form['easyopac_status']['settings']['background_color'] = [

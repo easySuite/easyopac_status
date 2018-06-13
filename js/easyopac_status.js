@@ -88,7 +88,7 @@
           $('#easyddb-status-wrapper').find('.message').html(message);
         }
 
-        setTimeout(callStatusService, 5000);
+        setTimeout(callStatusService, 30000);
       }
     });
   }
