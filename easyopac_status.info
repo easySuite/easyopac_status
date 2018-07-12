@@ -1,0 +1,5 @@
+name = easyOPAC Status
+description = Integrate StatusPage.io API.
+core = 7.x
+package = easyOPAC
+config = admin/reports/easyopac_status

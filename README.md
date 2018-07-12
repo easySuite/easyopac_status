@@ -1,2 +1,2 @@
-# easyddb_status
+# easyopac_status
 Integrate StatusPage.io API
