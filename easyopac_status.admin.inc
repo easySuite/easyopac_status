@@ -36,7 +36,7 @@ function easyopac_status_admin_settings_form($form, &$form_state) {
   $form['easyopac_status']['admin']['page'] = [
     '#type' => 'textfield',
     '#title' => t('Page ID'),
-    '#default_value' => !empty($configs['admin']['page']) ? $configs['admin']['page'] : '',
+    '#default_value' => !empty($configs['admin']['page']) ? $configs['admin']['page'] : 'mzgxvjlqnlzh',
     '#required' => TRUE,
   ];
   $form['easyopac_status']['admin']['key'] = [
