@@ -27,7 +27,7 @@ function easyopac_status_admin_settings_form($form, &$form_state) {
   $form['easyopac_status']['admin']['url'] = [
     '#type' => 'textfield',
     '#title' => t('API url'),
-    '#default_value' => !empty($configs['admin']['url']) ? $configs['admin']['url'] : '',
+    '#default_value' => !empty($configs['admin']['url']) ? $configs['admin']['url'] : 'statuspage.io/api/v2/status.json',
     '#attributes' => [
       'placeholder' => t('statuspage.io/api/v2/status.json'),
     ],
