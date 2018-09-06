@@ -10,7 +10,7 @@
 function easyopac_status_menu() {
   $items = [];
   $items['admin/reports/easyopac_status'] = [
-    'title' => 'easyOPAC Status',
+    'title' => 'easyOPAC Status Admin Page',
     'description' => 'easyOPAC Status cron report',
     'page callback' => 'drupal_get_form',
     'page arguments' => ['easyopac_status_admin_settings_form'],
@@ -25,7 +25,13 @@ function easyopac_status_menu() {
     'access arguments' => ['access content'],
     'type' => MENU_CALLBACK,
   ];
-
+  $items['easyopac_status/status'] = [
+    'title' => 'easyOPAC Status Request',
+    'description' => 'easyOPAC Status cURL Reques',
+    'page callback' => 'easyopac_status_request',
+    'access arguments' => ['access content'],
+    'type' => MENU_CALLBACK,
+  ];
   return $items;
 }
 
@@ -64,7 +70,39 @@ function easyopac_status_page_build(&$page) {
   ];
 }
 
+/**
+ * Save current status of the site.
+ */
 function easyopac_status_close_bar() {
   variable_set('easyopac_status_display', ['content' => check_plain($_GET['content']), 'status' => 0, 'indicator' => '']
   );
+}
+
+/**
+ * Make cURL request to get the status of the service.
+ */
+function easyopac_status_request() {
+  $configs = &drupal_static(__FUNCTION__);
+  if (empty($configs)) {
+    $configs = variable_get('easyopac_status', []);
+  }
+
+  $options = [];
+  if (!empty($configs['admin'])) {
+    $url = 'https://' . $configs['admin']['page'] . '.' . $configs['admin']['url'];
+    $options = [
+      'method' => 'GET',
+      'headers' => [
+        'Authorization' => 'OAuth ' . $configs['admin']['key'],
+      ],
+    ];
+  }
+  $result = drupal_http_request($url, $options);
+
+  $data = '';
+  if (!empty($result)) {
+    $data = drupal_json_decode($result->data);
+  }
+
+  drupal_json_output($data);
 }

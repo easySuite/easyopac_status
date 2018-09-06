@@ -69,7 +69,7 @@
    */
   function callStatusService() {
     $.ajax({
-      url: `https://${Drupal.settings.easyopac_status.admin.page}.${Drupal.settings.easyopac_status.admin.url}`,
+      url: 'easyopac_status/status',
       success: function (response) {
         let indicator = Drupal.settings.easyopac_status_display.indicator;
 
@@ -87,7 +87,6 @@
           }
           $('#easyddb-status-wrapper').find('.message').html(message);
         }
-
         setTimeout(callStatusService, 30000);
       }
     });
