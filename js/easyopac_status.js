@@ -21,7 +21,7 @@
       $('.easyddb-status-background-color, .easyddb-status-text-color', context).on('focus', function() {
         let edit_field = this;
         let type = $(edit_field).data('type');
-        let picker = $(edit_field).closest('div').parent().find(`.easyddb-status-${type}-colorpicker`);
+        let picker = $(edit_field).closest('div').parent().find('.easyddb-status-' + type + '-colorpicker');
 
         // Hide all color pickers except this one.
         $(".easyddb-status-colorpicker").hide();
@@ -50,7 +50,7 @@
         $(this)
           .css('background-color', Drupal.settings.easyopac_status.settings.background_color)
           .toggleClass('hidden')
-          .find('.message').css('color', Drupal.settings.easyopac_status.settings.text_color)
+          // .find('.message').css('color', Drupal.settings.easyopac_status.settings.text_color)
           .find('a').css('color', Drupal.settings.easyopac_status.settings.text_color);
 
         // Hide bar on close click.
@@ -72,20 +72,21 @@
       url: 'easyopac_status/status',
       success: function (response) {
         let indicator = Drupal.settings.easyopac_status_display.indicator;
-
+        // debugger;
         if (!indicator && response.status.indicator !== indicator && message === '') {
           message = Drupal.t(response.status.description);
 
           if (Drupal.settings.easyopac_status.settings.show_text && Drupal.settings.easyopac_status.settings.text) {
-            message += `<p>${Drupal.settings.easyopac_status.settings.text}</p>`;
+            message += '<p>Drupal.settings.easyopac_status.settings.text</p>';
           }
 
           // Link to page.
           if (Drupal.settings.easyopac_status.settings.link_page && Drupal.settings.easyopac_status.settings.link) {
-            message = `<a href="${Drupal.settings.easyopac_status.settings.link}" style="color: ${Drupal.settings.easyopac_status.settings.text_color}">${message}
-          </a>`;
+            message = '<a href="' + Drupal.settings.easyopac_status.settings.link + '">' + message + '</a>';
           }
-          $('#easyddb-status-wrapper').find('.message').html(message);
+          let $wrapper = $('#easyddb-status-wrapper');
+          $wrapper.find('.message').html(message);
+          $wrapper.find('.easyddb-status-inner').addClass(response.status.indicator);
         }
         setTimeout(callStatusService, 30000);
       }

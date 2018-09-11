@@ -58,10 +58,10 @@ function easyopac_status_admin_settings_form($form, &$form_state) {
     '#title' => t('Enable automatic status update.'),
     '#default_value' =>!empty($configs['settings']['active']) ? $configs['settings']['active'] : 0,
   ];
-  $form['easyopac_status']['settings']['show_text'] = [
+  $form['easyopac_status']['settings']['overrides'] = [
     '#type' => 'checkbox',
-    '#title' => t('Custom text (Will also be shown together with the automatic updates - if any)'),
-    '#default_value' => !empty($configs['settings']['show_text']) ? $configs['settings']['show_text'] : 0,
+    '#title' => t('Override status bar'),
+    '#default_value' => !empty($configs['settings']['overrides']) ? $configs['settings']['overrides'] : 0,
   ];
   $form['easyopac_status']['settings']['text'] = [
     '#type' => 'textfield',
@@ -69,17 +69,32 @@ function easyopac_status_admin_settings_form($form, &$form_state) {
     '#attributes' => [
       'placeholder' => t('Something is wrong with the library system.'),
     ],
+    '#states' => [
+      'invisible' => [
+        ':input[name="easyopac_status[settings][overrides]"]' => ['checked' => FALSE],
+      ],
+    ],
   ];
   $form['easyopac_status']['settings']['link_page'] = [
     '#type' => 'checkbox',
     '#title' => t('Link to page'),
     '#default_value' => !empty($configs['settings']['link_page']) ? $configs['settings']['link_page'] : 0,
+    '#states' => [
+      'invisible' => [
+        ':input[name="easyopac_status[settings][overrides]"]' => ['checked' => FALSE],
+      ],
+    ],
   ];
   $form['easyopac_status']['settings']['link'] = [
     '#type' => 'textfield',
     '#default_value' => !empty($configs['settings']['link']) ? $configs['settings']['link'] : '',
     '#attributes' => [
       'placeholder' => t('@url/example', ['@url' => $base_url]),
+    ],
+    '#states' => [
+      'invisible' => [
+        ':input[name="easyopac_status[settings][overrides]"]' => ['checked' => FALSE],
+      ],
     ],
   ];
   $form['easyopac_status']['settings']['background_color'] = [
@@ -98,6 +113,11 @@ function easyopac_status_admin_settings_form($form, &$form_state) {
         ['system', 'farbtastic'],
       ],
     ],
+    '#states' => [
+      'invisible' => [
+        ':input[name="easyopac_status[settings][overrides]"]' => ['checked' => FALSE],
+      ],
+    ],
   ];
   $form['easyopac_status']['settings']['text_color'] = [
     '#type' => 'textfield',
@@ -109,6 +129,11 @@ function easyopac_status_admin_settings_form($form, &$form_state) {
     '#attributes' => [
       'class' => ['easyddb-status-text-color'],
       'data-type' => ['text'],
+    ],
+    '#states' => [
+      'invisible' => [
+        ':input[name="easyopac_status[settings][overrides]"]' => ['checked' => FALSE],
+      ],
     ],
   ];
 
