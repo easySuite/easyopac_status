@@ -1,4 +1,7 @@
-@import '../../../themes/ddbasic/sass/base.scss';
+@import "../../../themes/ddbasic/sass/_base.scss";
+@import "../../../themes/ddbasic/sass/configuration/_extend.scss";
+@import "susy";
+
 #easyddb-status-wrapper {
   position: relative;
   &.hidden {
@@ -10,13 +13,21 @@
     max-width: 1124px;
     margin-left: auto;
     margin-right: auto;
+    .icon {
+      float: left;
+      font-size: 25px;
+      font-family: 'icomoon';
+      margin-top: 16px;
+    }
     .message {
       padding: 20px 0;
       border: none;
+      margin-left: 30px;
       p {
         margin: 0;
       }
     }
+
     .close-container {
       position: absolute;
       top: -8px;
@@ -26,17 +37,42 @@
       .close-button {
         position: relative;
         display: block;
-        &::after {
-          font-family: 'icomoon';
+        &:before {
           font-size: 54px;
-          line-height: 1;
-          color: rgba(38,38,38,.54);
-          display: block;
-          position: absolute;
-          top: 0;
+          font-family: 'icomoon';
           content: "\e907";
         }
       }
+    }
+  }
+  .maintenance {
+    .icon:before {
+      content: "\e91e";
+      color: blue;
+    }
+  }
+  .none {
+    .icon:before {
+      content: "\e91b";
+      color: green;
+    }
+  }
+  .minor {
+    .icon:before {
+      content: "\e90d";
+      color: yellow;
+    }
+  }
+  .major {
+    .icon:before {
+      content: "\e91c";
+      color: orange;
+    }
+  }
+  .critical {
+    .icon:before {
+      content: "\e91d";
+      color: red;
     }
   }
 }

@@ -86,9 +86,16 @@
   margin-left: auto;
   margin-right: auto;
 }
+#easyddb-status-wrapper .easyddb-status-inner .icon {
+  float: left;
+  font-size: 25px;
+  font-family: 'icomoon';
+  margin-top: 16px;
+}
 #easyddb-status-wrapper .easyddb-status-inner .message {
   padding: 20px 0;
   border: none;
+  margin-left: 30px;
 }
 #easyddb-status-wrapper .easyddb-status-inner .message p {
   margin: 0;
@@ -104,13 +111,28 @@
   position: relative;
   display: block;
 }
-#easyddb-status-wrapper .easyddb-status-inner .close-container .close-button::after {
-  font-family: 'icomoon';
+#easyddb-status-wrapper .easyddb-status-inner .close-container .close-button:before {
   font-size: 54px;
-  line-height: 1;
-  color: rgba(38, 38, 38, 0.54);
-  display: block;
-  position: absolute;
-  top: 0;
+  font-family: 'icomoon';
   content: "\e907";
+}
+#easyddb-status-wrapper .maintenance .icon:before {
+  content: "\e91e";
+  color: blue;
+}
+#easyddb-status-wrapper .none .icon:before {
+  content: "\e91b";
+  color: green;
+}
+#easyddb-status-wrapper .minor .icon:before {
+  content: "\e90d";
+  color: yellow;
+}
+#easyddb-status-wrapper .major .icon:before {
+  content: "\e91c";
+  color: orange;
+}
+#easyddb-status-wrapper .critical .icon:before {
+  content: "\e91d";
+  color: red;
 }
