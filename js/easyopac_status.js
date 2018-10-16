@@ -41,19 +41,21 @@
       $('#easyddb-status-wrapper', context).once('status-message', function () {
         let status = Drupal.settings.easyopac_status;
         let display = Drupal.settings.easyopac_status_display;
+
         if (status.length === 0 || !status.settings.active ||
             display.length === 0 || !display.status) {
           return;
         }
 
         callStatusService();
-        $(this)
-          .css('background-color', Drupal.settings.easyopac_status.settings.background_color)
-          .toggleClass('hidden')
-          // .find('.message').css('color', Drupal.settings.easyopac_status.settings.text_color)
-          .find('a').css('color', Drupal.settings.easyopac_status.settings.text_color);
 
-        // Hide bar on close click.
+        if (Drupal.settings.easyopac_status.settings.overrides) {
+          $(this)
+            .css('background-color', Drupal.settings.easyopac_status.settings.background_color)
+            .find('.message').css('color', Drupal.settings.easyopac_status.settings.text_color);
+        }
+
+        // Hide bar on close icon click.
         $(this).find('.close-button').on('click', function () {
           $('#easyddb-status-wrapper').toggleClass('hidden');
           $.ajax({
@@ -69,25 +71,43 @@
    */
   function callStatusService() {
     $.ajax({
-      url: 'easyopac_status/status',
+      url: '/easyopac_status/status',
       success: function (response) {
-        let indicator = Drupal.settings.easyopac_status_display.indicator;
-        // debugger;
-        if (!indicator && response.status.indicator !== indicator && message === '') {
-          message = Drupal.t(response.status.description);
+        let indicator = response.status.indicator;
+        let $wrapper = $('#easyddb-status-wrapper');
+        if (indicator !== 'none') {
+          $wrapper.removeClass('hidden');
 
-          if (Drupal.settings.easyopac_status.settings.show_text && Drupal.settings.easyopac_status.settings.text) {
-            message += '<p>Drupal.settings.easyopac_status.settings.text</p>';
-          }
+          // Update status bar content.
+          if (indicator !== Drupal.settings.easyopac_status_display.indicator) {
+            Drupal.settings.easyopac_status_display.indicator = indicator;
 
-          // Link to page.
-          if (Drupal.settings.easyopac_status.settings.link_page && Drupal.settings.easyopac_status.settings.link) {
-            message = '<a href="' + Drupal.settings.easyopac_status.settings.link + '">' + message + '</a>';
+            let message = Drupal.t(response.status.description);
+            if (Drupal.settings.easyopac_status.settings.overrides) {
+              // Add overrides text.
+              if (Drupal.settings.easyopac_status.settings.text) {
+                message = Drupal.settings.easyopac_status.settings.text;
+              }
+
+              // Link to page.
+              if (Drupal.settings.easyopac_status.settings.link_page && Drupal.settings.easyopac_status.settings.link) {
+                message = '<a href="' + Drupal.settings.easyopac_status.settings.link + '">' + message + '</a>';
+
+                // Add color style to the link.
+                if (Drupal.settings.easyopac_status.settings.text_color) {
+                  message = $(message).css('color', Drupal.settings.easyopac_status.settings.text_color);
+                }
+              }
+            }
+
+            $wrapper.find('.message').html(message);
           }
-          let $wrapper = $('#easyddb-status-wrapper');
-          $wrapper.find('.message').html(message);
-          $wrapper.find('.easyddb-status-inner').addClass(response.status.indicator);
         }
+        else {
+          $wrapper.addClass('hidden');
+        }
+
+        $wrapper.find('.easyddb-status-inner').attr('class', 'easyddb-status-inner').addClass(indicator);
         setTimeout(callStatusService, 30000);
       }
     });

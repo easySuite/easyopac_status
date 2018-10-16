@@ -1,28 +1,6 @@
-@font-face {
-  font-family: 'icomoon';
-  src:  url('../fonts/icomoon.eot?1w4qk9');
-  src:  url('../fonts/icomoon.eot?1w4qk9#iefix') format('embedded-opentype'),
-  url('../fonts/icomoon.ttf?1w4qk9') format('truetype'),
-  url('../fonts/icomoon.woff?1w4qk9') format('woff'),
-  url('../fonts/icomoon.svg?1w4qk9#icomoon') format('svg') !important;
-  font-weight: normal;
-  font-style: normal;
-}
-
-[class^="icon-"], [class*=" icon-"] {
-  /* use !important to prevent issues with browser extensions that change fonts */
-  font-family: 'icomoon' !important;
-  speak: none;
-  font-style: normal;
-  font-weight: normal;
-  font-variant: normal;
-  text-transform: none;
-  line-height: 1;
-
-  /* Better Font Rendering =========== */
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-}
+@import "../../../themes/ddbasic/sass/_base.scss";
+@import "../../../themes/ddbasic/sass/configuration/_extend.scss";
+@import "susy";
 
 #easyddb-status-wrapper {
   position: relative;
@@ -35,9 +13,16 @@
     max-width: 1124px;
     margin-left: auto;
     margin-right: auto;
+    .icon {
+      float: left;
+      font-size: 25px;
+      font-family: 'icomoon';
+      margin-top: 16px;
+    }
     .message {
       padding: 20px 0;
       border: none;
+      margin-left: 30px;
       p {
         margin: 0;
       }
@@ -54,61 +39,40 @@
         display: block;
         &:before {
           font-size: 54px;
-          content: "\e907";
           font-family: 'icomoon';
+          content: "\e907";
         }
       }
     }
   }
-  .critical {
-    .message {
-      color: red;
-    }
+  .maintenance {
     .icon:before {
-      font-size: 55px;
-      content: "\e902";
-      font-family: 'icomoon';
+      content: "\e91e";
+      color: blue;
     }
   }
   .none {
-    .message {
-      color: green;
-    }
     .icon:before {
-      font-size: 55px;
-      content: "\e902";
-      font-family: 'icomoon';
+      content: "\e91b";
+      color: green;
     }
   }
   .minor {
-    .message {
-      color: yellow;
-    }
     .icon:before {
-      font-size: 55px;
-      content: "\e902";
-      font-family: 'icomoon';
+      content: "\e90d";
+      color: yellow;
     }
   }
   .major {
-    .message {
+    .icon:before {
+      content: "\e91c";
       color: orange;
     }
-    .icon:before {
-      font-size: 55px;
-      content: "\e902";
-      font-family: 'icomoon';
-    }
   }
-
-  .default {
-    .message {
-      color: blue;
-    }
+  .critical {
     .icon:before {
-      font-size: 55px;
-      content: "\e902";
-      font-family: 'icomoon';
+      content: "\e91d";
+      color: red;
     }
   }
 }

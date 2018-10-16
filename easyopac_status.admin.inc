@@ -36,13 +36,13 @@ function easyopac_status_admin_settings_form($form, &$form_state) {
   $form['easyopac_status']['admin']['page'] = [
     '#type' => 'textfield',
     '#title' => t('Page ID'),
-    '#default_value' => !empty($configs['admin']['page']) ? $configs['admin']['page'] : 'mzgxvjlqnlzh',
+    '#default_value' => !empty($configs['admin']['page']) ? $configs['admin']['page'] : 'g6py5c2psjpr',
     '#required' => TRUE,
   ];
   $form['easyopac_status']['admin']['key'] = [
     '#type' => 'textfield',
     '#title' => t('User API Key'),
-    '#default_value' => !empty($configs['admin']['key']) ? $configs['admin']['key'] : '',
+    '#default_value' => !empty($configs['admin']['key']) ? $configs['admin']['key'] : 'fd68825f-da80-4cbb-90bf-cd31277dd593',
     '#attributes' => [
       'placeholder' => t('fd68825f-da80-4cbb-90bf-cd31277dd593'),
     ],
