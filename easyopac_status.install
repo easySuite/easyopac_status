@@ -11,6 +11,9 @@ function easyopac_status_install() {
   variable_set('easyopac_status_display', ['content' => '', 'status' => 1, 'indicator' => '']);
 }
 
+/**
+ * Implements hook_uninstall().
+ */
 function easyopac_status_uninstall() {
   variable_del('easyopac_status');
   variable_del('easyopac_status_display');
